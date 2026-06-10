@@ -1,41 +1,211 @@
-#How to use this RAG AI Teaching assistant on your own data
-## Step 0- Install requirements
-Install Python packages:
+# RAG AI Teaching Assistant
 
-```powershell
+An AI-powered educational search engine that allows students to ask questions across an entire course and instantly discover:
+
+* Which video contains the topic
+* The exact timestamp where it is taught
+* A concise explanation generated from the lecture content
+
+Instead of manually searching through 50–100 lecture videos, students can simply ask a question such as:
+
+> "Where is SEO taught?"
+>
+> "Which video explains HTML Audio and Video tags?"
+>
+> "Where can I learn about Core Web Vitals?"
+
+The system searches through video transcripts, retrieves the most relevant lecture segments, identifies the corresponding video and timestamp, and generates an answer using a local Large Language Model.
+
+---
+
+## Key Features
+
+### Course-Wide Search
+
+Search across an entire course containing dozens or even hundreds of videos.
+
+### Timestamp Retrieval
+
+Find the exact video and timestamp where a topic is discussed.
+
+Example:
+
+Question:
+"Where is SEO taught?"
+
+Output:
+
+* Video: SEO and Core Web Vitals in HTML
+* Timestamp: 12:34
+* Explanation: SEO improves a website's visibility in search engines...
+
+### AI-Powered Explanations
+
+The system not only locates the topic but also generates a concise explanation based on the lecture content.
+
+### Fully Local AI Pipeline
+
+Runs locally using Ollama without requiring paid APIs.
+
+### Semantic Search
+
+Uses embeddings instead of keyword matching, allowing users to find concepts even when different wording is used.
+
+---
+
+## How It Works
+
+```text
+Course Videos
+      ↓
+Audio Extraction
+      ↓
+Whisper Transcription
+      ↓
+Transcript Processing
+      ↓
+Chunk Creation
+      ↓
+BGE-M3 Embeddings
+      ↓
+Semantic Search
+      ↓
+Relevant Video + Timestamp Retrieval
+      ↓
+Llama 3.2 (Ollama)
+      ↓
+Answer + Learning Location
+```
+
+---
+
+## Example Queries
+
+### Query 1
+
+"Where is SEO taught?"
+
+Output:
+
+* Video Name
+* Timestamp
+* Explanation of SEO
+
+### Query 2
+
+"In which lecture are HTML audio and video tags explained?"
+
+Output:
+
+* Relevant Video
+* Start Timestamp
+* Brief Summary
+
+### Query 3
+
+"What are Core Web Vitals?"
+
+Output:
+
+* Related Lecture Segment
+* Timestamp
+* AI-Generated Explanation
+
+---
+
+## Tech Stack
+
+* Python
+* Ollama
+* Llama 3.2
+* BGE-M3 Embeddings
+* Whisper
+* Pandas
+* NumPy
+* Scikit-Learn
+* Joblib
+
+---
+
+## Installation
+
+### Install Python Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-You also need FFmpeg installed for video/audio conversion and Ollama running locally with the `bge-m3` embedding model.
+### Install Ollama
 
-## Step 1- Collect your videos
-Move all your video files to the videos folder
+```bash
+ollama pull llama3.2
+ollama pull bge-m3
+```
 
-## Step 2- Convert to mp3
-Convert all the videos files to mp3 by running video_to_mp3
+Start Ollama:
 
-## Step 3- Convert mp3 to json
-Convert all the mp3 files to json by running mp3_to_json
+```bash
+ollama serve
+```
 
-## Step 4- Convert the json files to Vectors
-Use the file preprocess_json to convert the json files to a dataframe with Embeddings and save it as a joblib pickle
+---
 
-## Step 5- Prompt generation and feeding to LLM
+## Usage
 
-Read the joblib file and load it into the memory.Then create a relevant prompt as per the user query and feed it to the LLM
+### Step 1: Add Course Videos
 
-## OpenAI API key
-Do not paste your real key directly into code. Set it as an environment variable before running `process_incoming.py`:
+Place all course videos inside the videos directory.
 
-```powershell
-$env:OPENAI_API_KEY="your_api_key_here"
+### Step 2: Convert Videos To Audio
+
+```bash
+python video_to_mp3.py
+```
+
+### Step 3: Generate Transcripts
+
+```bash
+python speech_to_text.py
+```
+
+### Step 4: Convert To Structured JSON
+
+```bash
+python mp3_to_jsons.py
+```
+
+### Step 5: Generate Embeddings
+
+```bash
+python preprocess_json.py
+```
+
+### Step 6: Ask Questions
+
+```bash
 python process_incoming.py
 ```
 
-For a permanent Windows user environment variable, run:
+Example:
 
-```powershell
-setx OPENAI_API_KEY "your_api_key_here"
+```text
+Where is SEO taught?
 ```
 
-After using `setx`, open a new terminal before running the script.
+The system returns:
+
+* Relevant video
+* Timestamp
+* Context
+* AI-generated answer
+
+---
+
+## Future Improvements
+
+* FAISS Vector Database
+* Streamlit Web Interface
+* Multi-Course Search
+* PDF and Notes Support
+* Hybrid Search (Keyword + Embeddings)
+* Course Analytics Dashboard
