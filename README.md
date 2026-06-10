@@ -1,0 +1,41 @@
+#How to use this RAG AI Teaching assistant on your own data
+## Step 0- Install requirements
+Install Python packages:
+
+```powershell
+pip install -r requirements.txt
+```
+
+You also need FFmpeg installed for video/audio conversion and Ollama running locally with the `bge-m3` embedding model.
+
+## Step 1- Collect your videos
+Move all your video files to the videos folder
+
+## Step 2- Convert to mp3
+Convert all the videos files to mp3 by running video_to_mp3
+
+## Step 3- Convert mp3 to json
+Convert all the mp3 files to json by running mp3_to_json
+
+## Step 4- Convert the json files to Vectors
+Use the file preprocess_json to convert the json files to a dataframe with Embeddings and save it as a joblib pickle
+
+## Step 5- Prompt generation and feeding to LLM
+
+Read the joblib file and load it into the memory.Then create a relevant prompt as per the user query and feed it to the LLM
+
+## OpenAI API key
+Do not paste your real key directly into code. Set it as an environment variable before running `process_incoming.py`:
+
+```powershell
+$env:OPENAI_API_KEY="your_api_key_here"
+python process_incoming.py
+```
+
+For a permanent Windows user environment variable, run:
+
+```powershell
+setx OPENAI_API_KEY "your_api_key_here"
+```
+
+After using `setx`, open a new terminal before running the script.

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+
+AUDIOS/
+VIDEOS/
+jsons/
+new_jsons/
+unused/
+
+embeddings.joblib
+answer.txt
+output.json
+json rag.json
