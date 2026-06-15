@@ -29,7 +29,8 @@ def create_embedding(text_list):
             status_code = e.code
             response_text = e.read().decode("utf-8")
 
-        print("Status_code:", status_code)
+        if status_code != 200:
+            print("Status_code:", status_code)
 
         data = json.loads(response_text)
         if "embeddings" in data:

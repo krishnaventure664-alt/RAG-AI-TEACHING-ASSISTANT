@@ -16,6 +16,22 @@ Instead of manually searching through 50–100 lecture videos, students can simp
 
 The system searches through video transcripts, retrieves the most relevant lecture segments, identifies the corresponding video and timestamp, and generates an answer using a local Large Language Model.
 
+
+## Demo
+
+### Ask a Question
+
+![Ask Question](Screenshots/Query.png)
+
+### Enter Your Query
+
+![Query Input](screenshots/Question.png)
+
+### Get Video, Timestamp and AI Explanation
+
+![Result](screenshots/Result.png)
+
+
 ---
 
 ## Key Features
