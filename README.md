@@ -25,11 +25,11 @@ The system searches through video transcripts, retrieves the most relevant lectu
 
 ### Enter Your Query
 
-![Query Input](screenshots/Question.png)
+![Query Input](Screenshots/Question.png)
 
 ### Get Video, Timestamp and AI Explanation
 
-![Result](screenshots/Result.png)
+![Result](Screenshots/Result.png)
 
 
 ---
